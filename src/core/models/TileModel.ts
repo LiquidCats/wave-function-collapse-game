@@ -1,10 +1,19 @@
-import {TileTypeEnum, RULES} from "../enums/tile";
-import {randomElement} from "../helpers/randomness";
-
+import {TileTypeEnum} from "core/enums/tile";
+import {randomElement} from "core/helpers/randomness";
+//
 type superpositionKey = "UP"|"DOWN"|"LEFT"|"RIGHT"
 type superpositionType = { [k in superpositionKey]?: TileModel }
 
 const sorter = (a: TileModel, b: TileModel) => a.availableTypes.length - b.availableTypes.length
+
+const RULES = (new Map())
+    .set(TileTypeEnum.TREES, [TileTypeEnum.TREES, TileTypeEnum.BUSHES])
+    .set(TileTypeEnum.BUSHES, [TileTypeEnum.TREES, TileTypeEnum.BUSHES ,TileTypeEnum.GRASS])
+    .set(TileTypeEnum.GRASS, [TileTypeEnum.BUSHES, TileTypeEnum.GRASS, TileTypeEnum.SAND])
+    .set(TileTypeEnum.SAND, [TileTypeEnum.GRASS, TileTypeEnum.SAND, TileTypeEnum.WATER])
+    .set(TileTypeEnum.WATER, [TileTypeEnum.SAND, TileTypeEnum.WATER])
+
+
 class TileModel {
     private static readonly overlapping: number = 3
 
@@ -18,6 +27,14 @@ class TileModel {
         this.superposition = {}
 
         this.isCollapsed = false;
+    }
+
+    get type(): TileTypeEnum {
+        if (this.isCollapsed) {
+            return this.availableTypes[0]
+        }
+
+        throw new Error('cant take type of non-collapsed tile')
     }
 
     public collapse(type?: TileTypeEnum) {
@@ -54,7 +71,7 @@ class TileModel {
             const res = []
             for (const type of types) {
                 res.push(
-                    this.availableTypes.filter(t => RULES[t].includes(type))
+                    this.availableTypes.filter(t => RULES.get(t).includes(type))
                 )
             }
 
@@ -77,7 +94,7 @@ class TileModel {
             const availableConnections: TileTypeEnum[][] = [];
 
             for (const availableType of this.availableTypes) {
-                availableConnections.push(RULES[availableType])
+                availableConnections.push(RULES.get(availableType))
             }
 
             const uniqueItems: Set<TileTypeEnum> = new Set();
