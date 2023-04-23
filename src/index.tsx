@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from "react-dom/client";
 import * as PIXI from "pixi.js";
+import {AppProvider, createRoot} from "@pixi/react";
+import {RecoilRoot} from 'recoil';
 //
 import App from "App";
-import {AppProvider} from "@pixi/react";
 //
 import "assets/styles/main.scss"
 //
@@ -14,16 +14,22 @@ window.oncontextmenu = (e) => {
     return false
 }
 const app = new PIXI.Application({
-    backgroundColor: "#000",
-    antialias: true,
+    backgroundColor: 0x171717,
+    antialias: false,
+    autoDensity: true,
     backgroundAlpha: 1,
+    width: window.innerWidth,
+    height: window.outerHeight,
+    view: document.getElementById('root') as HTMLCanvasElement,
 })
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-
+const root = createRoot(app.stage)
 root.render(
-    <App/>
-
+    <AppProvider value={app}>
+        <RecoilRoot>
+                <App/>
+        </RecoilRoot>
+    </AppProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
