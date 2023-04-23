@@ -12,7 +12,7 @@ import {TILE_TO_SPRITE} from "./core/mappers/tile";
 
 type AppProps = {}
 
-const App = memo((props: AppProps) => {
+const App = memo<AppProps>(() => {
     const [width, height] = useResize();
 
     const GameScreenHeight= useMemo(() => height - (height * .2), [height])

@@ -56,7 +56,7 @@ class TerrainModel {
         return this
     }
 
-    public collapse(type?: TileTypeEnum): TerrainModel {
+    public collapse(): TerrainModel {
         const x = randomInt(this.field.length)
         const y = randomInt(this.field.length)
 

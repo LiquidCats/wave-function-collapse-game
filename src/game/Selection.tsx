@@ -59,7 +59,7 @@ const Selection = memo(
         }, [selectWidth, selectHeight, deltaX, deltaY]);
 
         if (showSelection) {
-            return <Graphics x={minX} y={minY} draw={draw}/>
+            return <Graphics x={minX} y={minY} draw={draw} ref={ref}/>
         }
 
         return null
