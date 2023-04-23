@@ -1,18 +1,11 @@
 import {TileTypeEnum} from "core/enums/tile";
 import {randomElement} from "core/helpers/randomness";
+import {RULES} from "core/mappers/tile";
 //
 type superpositionKey = "UP"|"DOWN"|"LEFT"|"RIGHT"
 type superpositionType = { [k in superpositionKey]?: TileModel }
 
 const sorter = (a: TileModel, b: TileModel) => a.availableTypes.length - b.availableTypes.length
-
-const RULES = (new Map())
-    .set(TileTypeEnum.TREES, [TileTypeEnum.TREES, TileTypeEnum.BUSHES])
-    .set(TileTypeEnum.BUSHES, [TileTypeEnum.TREES, TileTypeEnum.BUSHES ,TileTypeEnum.GRASS])
-    .set(TileTypeEnum.GRASS, [TileTypeEnum.BUSHES, TileTypeEnum.GRASS, TileTypeEnum.SAND])
-    .set(TileTypeEnum.SAND, [TileTypeEnum.GRASS, TileTypeEnum.SAND, TileTypeEnum.WATER])
-    .set(TileTypeEnum.WATER, [TileTypeEnum.SAND, TileTypeEnum.WATER])
-
 
 class TileModel {
     private static readonly overlapping: number = 3

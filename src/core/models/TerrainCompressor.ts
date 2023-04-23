@@ -1,14 +1,14 @@
 import {TileTypeEnum} from "../enums/tile";
 
 
-const TYPE_TO_NUMBER = (new Map)
+const TYPE_TO_NUMBER = (new Map())
     .set(TileTypeEnum.GRASS, 0)
     .set(TileTypeEnum.TREES, 1)
     .set(TileTypeEnum.BUSHES, 2)
     .set(TileTypeEnum.SAND, 3)
     .set(TileTypeEnum.WATER, 4)
 
-const NUMBER_TO_TYPE = (new Map)
+const NUMBER_TO_TYPE = (new Map())
     .set(0, TileTypeEnum.GRASS)
     .set(1, TileTypeEnum.TREES)
     .set(2, TileTypeEnum.BUSHES)
