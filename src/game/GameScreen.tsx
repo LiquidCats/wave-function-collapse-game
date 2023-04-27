@@ -6,13 +6,15 @@ import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import PixiViewport from "game/Viewport";
 import Tile from "game/tiles/Tile";
 import Selection from "game/Selection";
-import BuildingToBuild from "game/BuildingToBuild";
+import EntityToPlace from "game/entities/EntityToPlace";
 //
 import {MAP_SIZE, TILE_SIZE, TileTypeEnum} from "core/enums/tile";
-import {currentBuildingChosenToBuildCanPlaceSelector, currentBuildingChosenToBuildState} from "state/building";
+import {entityToPlaceCanPlaceSelector, entityToPlaceState} from "state/entityToPlace";
 import {mapCursorCoordinatesState} from "state/cursor";
 import {showSelectionState, startSelectionCoordinatesState} from "state/selection";
 import {mapState} from "state/map";
+import TileRow from "./tiles/TileRow";
+import EntityOnMap from "./entities/EntityOnMap";
 
 type GameScreenProps = {
     width: number,
@@ -24,15 +26,14 @@ const GameScreen = memo((props: GameScreenProps) => {
 
     const containerRef: MutableRefObject<any> = useRef(null)
 
-    const [currentBuildingChosenToBuild, setCurrentBuildingChosenToBuild] = useRecoilState(currentBuildingChosenToBuildState)
+    const [currentBuildingChosenToBuild, setCurrentBuildingChosenToBuild] = useRecoilState(entityToPlaceState)
     const setStartSelectionCoordinates = useSetRecoilState(startSelectionCoordinatesState)
     const setMapCursorCoordinates = useSetRecoilState(mapCursorCoordinatesState)
 
     const map = useRecoilValue(mapState)
-    const canPlaceBuilding = useRecoilValue(currentBuildingChosenToBuildCanPlaceSelector)
+    const canPlaceBuilding = useRecoilValue(entityToPlaceCanPlaceSelector)
     const setShowSelection = useSetRecoilState(showSelectionState)
 
-    console.log(canPlaceBuilding)
     const mouseDownHandler = useCallback((e: FederatedPointerEvent) => {
         const {x,y } = e.getLocalPosition(containerRef.current)
 
@@ -42,7 +43,6 @@ const GameScreen = memo((props: GameScreenProps) => {
             setShowSelection(true)
         }
 
-        console.log(canPlaceBuilding)
         if (canPlaceBuilding) {
             setCurrentBuildingChosenToBuild(null)
         }
@@ -71,21 +71,10 @@ const GameScreen = memo((props: GameScreenProps) => {
                          onMouseDown={mouseDownHandler}
                          onRightDown={rightDownHandler}>
         {
-            map.map((row: TileTypeEnum[], i: number) => {
-                const y = TILE_SIZE * i
-                // const yCondition = (realStartY > y) && (realEndY < y)
-                return row.map((tile: TileTypeEnum, j: number) => {
-                    const x = TILE_SIZE * j
-                    //
-                    // const xCondition = (realStartX > x) && (realEndX < x)
-                    //
-                    // const isSelected = showSelection && xCondition && yCondition
-
-                    return <Tile key={`${i}-${j}`} y={y} x={x} size={TILE_SIZE} type={tile}/>
-                })
-            })
+            map.map((row: TileTypeEnum[], i: number) => <TileRow row={row} tileY={i} key={`row-${i}`}/>)
         }
-        <BuildingToBuild/>
+        <EntityOnMap/>
+        <EntityToPlace/>
         <Selection/>
     </PixiViewport>
 })

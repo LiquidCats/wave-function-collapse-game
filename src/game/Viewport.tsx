@@ -22,6 +22,8 @@ export interface PixiComponentViewportProps extends ViewportProps {
     app: PIXI.Application;
 }
 
+const boundBox = TILE_SIZE*2
+
 const PixiViewportComponent = PixiComponent("Viewport", {
     create(props: PixiComponentViewportProps) {
         const {
@@ -62,7 +64,7 @@ const PixiViewportComponent = PixiComponent("Viewport", {
                 maxScale: 1
             })
             .bounce({
-                bounceBox: new Rectangle(-50, -50, viewport.worldWidth+50, viewport.worldHeight+50),
+                bounceBox: new Rectangle(-boundBox, -boundBox, viewport.worldWidth+boundBox, viewport.worldHeight+boundBox),
             })
             .decelerate()
 
