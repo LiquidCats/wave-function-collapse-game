@@ -1,6 +1,6 @@
 import {atom, selector} from "recoil";
-import {mapCursorCoordinatesState} from "./cursor";
-import {MAP_SIZE} from "../core/enums/tile";
+import {mapCursorCoordinatesState} from "state/cursor";
+import {MAP_SIZE} from "core/enums/tile";
 
 export const startSelectionCoordinatesState = atom<[number, number]>({
     key: 'startSelectionCoordinatesState',
