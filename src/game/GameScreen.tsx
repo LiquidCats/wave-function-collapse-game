@@ -4,11 +4,10 @@ import {FederatedPointerEvent} from "pixi.js";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 //
 import PixiViewport from "game/Viewport";
-import Tile from "game/tiles/Tile";
 import Selection from "game/Selection";
 import EntityToPlace from "game/entities/EntityToPlace";
 //
-import {MAP_SIZE, TILE_SIZE, TileTypeEnum} from "core/enums/tile";
+import {MAP_SIZE, TileTypeEnum} from "core/enums/tile";
 import {entityToPlaceCanPlaceSelector, entityToPlaceState} from "state/entityToPlace";
 import {mapCursorCoordinatesState} from "state/cursor";
 import {showSelectionState, startSelectionCoordinatesState} from "state/selection";

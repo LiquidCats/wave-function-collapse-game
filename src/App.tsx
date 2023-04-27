@@ -21,7 +21,7 @@ const App = memo<AppProps>(() => {
 
     const setCurrentBuildingChosenToBuild = useSetRecoilState(entityToPlaceState)
     const buildingCreationHandler = useCallback((type: EntityTypeEnum) => () => {
-        setCurrentBuildingChosenToBuild(EntityTypeEnum.BASE_BUILDING)
+        setCurrentBuildingChosenToBuild(type)
     }, [])
 
     const drawHUDBackground = useCallback((g: IGraphics) => {

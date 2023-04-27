@@ -4,7 +4,6 @@ import trees from "assets/images/sprites/tiles/trees.png";
 import bushes from "assets/images/sprites/tiles/bushes.png";
 import sand from "assets/images/sprites/tiles/sand.png";
 import water from "assets/images/sprites/tiles/water.png";
-import building from "assets/images/sprites/tiles/building.png";
 
 export const TILE_TO_SPRITE = (new Map<TileTypeEnum, string>())
     .set(TileTypeEnum.GRASS, grass)

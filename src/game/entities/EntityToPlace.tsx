@@ -4,7 +4,7 @@ import {Sprite} from "@pixi/react";
 //
 import {TILE_SIZE} from "core/enums/tile";
 //
-import {mapCursorCoordinatesState, tileCursorCoordinatesSelector} from "state/cursor";
+import {tileCursorCoordinatesSelector} from "state/cursor";
 import {
     entityToPlaceCanPlaceSelector, entityToPlaceObjectSelector,
     entityToPlaceState
