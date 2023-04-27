@@ -34,8 +34,8 @@ export const entityToPlaceBottomRightCoordsSelector = selector<[number, number]>
             return [0, 0]
         }
 
-        const localX = (x + TILE_SIZE * buildingObject.size) - TILE_SIZE/2
-        const localY = (y + TILE_SIZE * buildingObject.size) - TILE_SIZE/2
+        const localX = (x + buildingObject.sizeInPixels) - TILE_SIZE/2
+        const localY = (y + buildingObject.sizeInPixels) - TILE_SIZE/2
 
         return [localX, localY]
     }
@@ -70,8 +70,8 @@ export const entityToPlaceCanPlaceSelector = selector<boolean>({
             return false
         }
 
-        for (let i = tileY; i < tileY+buildingObject.size; i++) {
-            for (let j = tileX; j < tileX+buildingObject.size; j++) {
+        for (let i = tileY; i < tileY+ buildingObject.sizeInTiles; i++) {
+            for (let j = tileX; j < tileX+ buildingObject.sizeInTiles; j++) {
                 const tile = map[i][j]
 
                 if (buildingObject instanceof StructureModel) {

@@ -41,8 +41,8 @@ const EntityToPlace = memo(
                        anchor={0}
                        alpha={.8}
                        cullable={true}
-                       width={buildingObject.size * TILE_SIZE}
-                       height={buildingObject.size * TILE_SIZE}/>
+                       width={buildingObject?.sizeInPixels}
+                       height={buildingObject?.sizeInPixels}/>
     })
 )
 

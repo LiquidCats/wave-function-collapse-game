@@ -38,8 +38,8 @@ const App = memo<AppProps>(() => {
             <Sprite x={10}
                     y={10}
                     eventMode="dynamic"
-                    onmouseup={buildingCreationHandler(EntityTypeEnum.BASE_BUILDING)}
-                    image={ENTITY_TO_SPRITE.get(EntityTypeEnum.BASE_BUILDING)}
+                    onmouseup={buildingCreationHandler(EntityTypeEnum.BASE_STRUCTURE)}
+                    image={ENTITY_TO_SPRITE.get(EntityTypeEnum.BASE_STRUCTURE)}
                     height={TILE_SIZE}
                     width={TILE_SIZE}/>
         </Container>
