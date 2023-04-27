@@ -12,10 +12,7 @@ export const TILE_TO_SPRITE = (new Map<TileTypeEnum, string>())
     .set(TileTypeEnum.BUSHES, bushes)
     .set(TileTypeEnum.SAND, sand)
     .set(TileTypeEnum.WATER, water)
-    .set(TileTypeEnum.BUILDING_1, building)
 
-export const INTERACTIVE_TILES = (new Set<TileTypeEnum>())
-    .add(TileTypeEnum.BUILDING_1)
 
 export const RULES = (new Map())
     .set(TileTypeEnum.TREES, [TileTypeEnum.TREES, TileTypeEnum.BUSHES])

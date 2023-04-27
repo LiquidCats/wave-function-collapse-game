@@ -1,4 +1,4 @@
-import {TileTypeEnum} from "../enums/tile";
+import {TileTypeEnum} from "core/enums/tile";
 
 
 const TYPE_TO_NUMBER = (new Map())

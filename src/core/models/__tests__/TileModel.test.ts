@@ -1,5 +1,5 @@
 import TileModel from "core/models/TileModel";
-import {TileTypeEnum} from "../../enums/tile";
+import {TileTypeEnum} from "core/enums/tile";
 
 describe("TileModel", () => {
     it('should solve conflicts: set #1', () => {
