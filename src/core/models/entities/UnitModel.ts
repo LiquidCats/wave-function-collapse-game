@@ -1,14 +1,27 @@
-import {Position} from "core/models/entities/types";
+import Position from "core/valueObjects/Position";
 import Entity from "core/models/entities/Entity";
-import {EntityTypeEnum} from "../../enums/entity";
+import {Renderable} from "core/models/entities/types";
+import {EntityTypeEnum} from "core/enums/entity";
+import {ENTITY_TO_SPRITE} from "core/mappers/entity";
 
-export default class UnitModel extends Entity {
+export default class UnitModel extends Entity implements Renderable {
+    private readonly _texture: string;
     protected _startRotation: number = 0
     protected _currentRotation: number = 0
     protected _endRotation: number = 0
     protected _isMoving: boolean = false
-    protected _startPosition: Position = {x: 0, y: 0}
-    protected _endPosition: Position = {x: 0, y: 0}
+    protected _startPosition: Position = new Position(0,0)
+    protected _endPosition: Position = new Position(0,0)
+
+    constructor(protected _type: EntityTypeEnum|null = null) {
+        super(_type)
+
+        this._texture = ""
+
+        if (_type) {
+            this._texture = ENTITY_TO_SPRITE.get(_type) ?? "unknown_texture.png"
+        }
+    }
 
     get currentRotation() {
         return this._currentRotation
@@ -32,6 +45,10 @@ export default class UnitModel extends Entity {
 
     get isMoving(): boolean {
         return this._isMoving;
+    }
+
+    get texture(): string {
+        return this._texture
     }
 
     public placeOnMap(position: Position): Entity {

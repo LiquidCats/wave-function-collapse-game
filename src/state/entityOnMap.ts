@@ -2,35 +2,39 @@ import {atom, selector} from "recoil";
 import Entity from "core/models/entities/Entity";
 import UnitModel from "core/models/entities/UnitModel";
 import StructureModel from "core/models/entities/StructureModel";
+import {ENTITY_TO_OBJECT} from "core/mappers/entity";
+import {EntityTypeEnum} from "core/enums/entity";
 
-const entitiesOnMap = atom<Entity[]>({
-    key: "entitiesOnMap",
-    default: [],
+export const entitiesOnMapState = atom<Entity[]>({
+    key: "entitiesOnMapState",
+    default: [
+        ENTITY_TO_OBJECT.get(EntityTypeEnum.COMMAND_UNIT)
+    ],
 })
 
-const entitiesOnMapCountSelector = selector<number>({
+export const entitiesOnMapCountSelector = selector<number>({
     key: "entitiesOnMapCountSelector",
     get: ({get}) => {
-        return get(entitiesOnMap).length
+        return get(entitiesOnMapState).length
     }
 })
 
-const selectedEntities = atom({
-    key: "selectedEntities",
+export const selectedEntitiesState = atom({
+    key: "selectedEntitiesState",
     default: [],
 })
 
-const hasUniqueUnitOnMapSelector = selector<boolean>({
+export const hasUniqueUnitOnMapSelector = selector<boolean>({
     key: "hasUniqueUnitOnMapSelector",
-    get: ({get}) => get(entitiesOnMap)
+    get: ({get}) => get(entitiesOnMapState)
         .filter(e => e instanceof UnitModel)
         .filter(e => e.isUnique)
         .length !== 0
 })
 
-const hasUniqueStructureOnMapSelector = selector<boolean>({
+export const hasUniqueStructureOnMapSelector = selector<boolean>({
     key: "hasUniqueUnitOnMapSelector",
-    get: ({get}) => get(entitiesOnMap)
+    get: ({get}) => get(entitiesOnMapState)
         .filter(e => e instanceof StructureModel)
         .filter(e => e.isUnique)
         .length !== 0

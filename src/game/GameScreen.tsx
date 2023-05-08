@@ -3,17 +3,18 @@ import {memo, MutableRefObject, useCallback, useRef} from "react";
 import {FederatedPointerEvent} from "pixi.js";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 //
-import PixiViewport from "game/Viewport";
 import Selection from "game/Selection";
+import PixiViewport from "game/Viewport";
+import TileRow from "game/tiles/TileRow";
 import EntityToPlace from "game/entities/EntityToPlace";
+import EntitiesOnMap from "game/entities/EntitiesOnMapRenderer";
 //
 import {MAP_SIZE, TileTypeEnum} from "core/enums/tile";
+//
 import {entityToPlaceCanPlaceSelector, entityToPlaceState} from "state/entityToPlace";
-import {mapCursorCoordinatesState} from "state/cursor";
 import {showSelectionState, startSelectionCoordinatesState} from "state/selection";
+import {mapCursorCoordinatesState} from "state/cursor";
 import {mapState} from "state/map";
-import TileRow from "./tiles/TileRow";
-import EntityOnMap from "./entities/EntityOnMap";
 
 type GameScreenProps = {
     width: number,
@@ -72,7 +73,7 @@ const GameScreen = memo((props: GameScreenProps) => {
         {
             map.map((row: TileTypeEnum[], i: number) => <TileRow row={row} tileY={i} key={`row-${i}`}/>)
         }
-        <EntityOnMap/>
+        <EntitiesOnMap/>
         <EntityToPlace/>
         <Selection/>
     </PixiViewport>

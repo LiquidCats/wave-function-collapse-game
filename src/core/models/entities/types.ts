@@ -1,1 +1,3 @@
-export type Position = {x: number, y: number}
+export interface Renderable {
+    get texture(): string
+}

@@ -5,7 +5,7 @@ import {mapCursorCoordinatesState, tileCursorCoordinatesSelector} from "state/cu
 import {mapState} from "state/map";
 import {EntityTypeEnum} from "core/enums/entity";
 import Entity from "core/models/entities/Entity";
-import StructureModel from "../core/models/entities/StructureModel";
+import StructureModel from "core/models/entities/StructureModel";
 
 export const entityToPlaceState = atom<null|EntityTypeEnum>({
     key: "entityToPlaceState",

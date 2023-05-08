@@ -1,14 +1,15 @@
-import {Position} from "core/models/entities/types";
-import {EntityTypeEnum} from "../../enums/entity";
-import {TILE_SIZE} from "../../enums/tile";
+import Position from "core/valueObjects/Position";
+import {EntityTypeEnum} from "core/enums/entity";
+import {TILE_SIZE} from "core/enums/tile";
 
 export default abstract class Entity {
-    protected _currentPosition: Position = {x: 0, y: 0}
+    protected _currentPosition: Position = new Position(0,0)
     protected _buildingEnergyCost: number = 0;
     protected _energyConsumption: number = 0;
     protected _energyProduction: number = 0;
     protected _sizeInPixels: number = 0;
     protected _sizeInTiles: number = 0;
+    protected _initialHealth: number = 0
     protected _health: number = 0
     protected _dps: number = 0
     private _isUnique: boolean = false
@@ -55,8 +56,28 @@ export default abstract class Entity {
         return this._health
     }
 
+    get initialHealth() {
+        return this._initialHealth
+    }
+
     get dps() {
         return this._dps
+    }
+
+    get isUniqable() {
+        return this._isUnique
+    }
+    get observationRadiusInTiles() {
+        return this._observationRadiusInTiles
+    }
+    get observationRadiusInPixels() {
+        return this._observationRadiusInPixels
+    }
+    get attackRadiusInTiles() {
+        return this._attackRadiusInTiles
+    }
+    get attackRadiusInPixels() {
+        return this._attackRadiusInPixels
     }
 
     public receiveDamageFrom(e: Entity) {
@@ -104,6 +125,7 @@ export default abstract class Entity {
 
     public setHealth(value: number) {
         this._health = value
+        this._initialHealth = value
 
         return this
     }

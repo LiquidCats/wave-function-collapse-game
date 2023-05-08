@@ -31,10 +31,13 @@ class EntityMap {
         return this._map.has(key)
     }
 
-    public get<T extends Entity>(key: EntityTypeEnum): T|Entity|undefined {
+    public get<T extends Entity>(key: EntityTypeEnum): T|Entity {
         const creator: EntityCreator<T> = this._map.get(key)
+        if (!creator) {
+            throw new Error(`no creator define for entity type: ${key}`)
+        }
 
-        return creator ? creator() : undefined
+        return creator()
     }
 }
 export const ENTITY_TO_SPRITE = (new Map<EntityTypeEnum, string>())
