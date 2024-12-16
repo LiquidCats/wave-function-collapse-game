@@ -6,8 +6,13 @@ import {RecoilRoot} from 'recoil';
 import App from "App";
 //
 import "assets/styles/main.scss"
+import EntitiesContainer from "core/models/entities/EntitiesContainer";
+import EntitiesContext from "game/entities/context/EntitiesContext";
 //
 import reportWebVitals from './reportWebVitals';
+import {commandUnitCreator, attackUnitCreator} from "./core/models/entities/creators";
+import Position from "./core/valueObjects/Position";
+import UnitModel from "./core/models/entities/UnitModel";
 
 window.oncontextmenu = (e) => {
     e.preventDefault()
@@ -22,12 +27,22 @@ const app = new PIXI.Application({
     height: window.outerHeight,
     view: document.getElementById('root') as HTMLCanvasElement,
 })
+const entities = new EntitiesContainer()
+entities.add(
+    commandUnitCreator().placeOnMap(new Position(100, 100))
+)
+entities.add(
+    (attackUnitCreator().placeOnMap(new Position(300, 300)) as UnitModel)
+)
 
 const root = createRoot(app.stage)
+
 root.render(
     <AppProvider value={app}>
         <RecoilRoot>
+            <EntitiesContext.Provider value={entities}>
                 <App/>
+            </EntitiesContext.Provider>
         </RecoilRoot>
     </AppProvider>
 );

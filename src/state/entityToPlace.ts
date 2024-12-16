@@ -53,7 +53,7 @@ export const entityToPlaceTopLeftCoordsSelector = selector({
 })
 
 export const entityToPlaceCanPlaceSelector = selector<boolean>({
-    key: "currentBuildingChosenToBuild/CanPlace",
+    key: "entityToPlaceCanPlaceSelector/CanPlace",
     get: ({get}) => {
         const map = get(mapState)
         const buildingObject = get(entityToPlaceObjectSelector)

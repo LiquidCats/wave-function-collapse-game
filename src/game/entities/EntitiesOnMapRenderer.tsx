@@ -1,16 +1,19 @@
-import {memo} from "react";
-import {useRecoilValue} from "recoil";
-import {Container} from "@pixi/react";
+import {memo, useContext, useState} from "react";
+import {Container, useTick} from "@pixi/react";
 //
 import EntityOnMap from "game/entities/EntityOnMap";
-//
-import {entitiesOnMapState} from "state/entityOnMap";
+import entitiesContext from "game/entities/context/EntitiesContext";
 
 const EntitiesOnMapRenderer = memo((props) => {
-    const entitiesOnMap = useRecoilValue(entitiesOnMapState)
+    const entitiesOnMap = useContext(entitiesContext)
+    const [entities, setEntities] = useState(entitiesOnMap.all())
+    useTick(() => {
+        setEntities(entitiesOnMap.all())
+    })
+
     return <Container>
         {
-            entitiesOnMap.map((e, i) => <EntityOnMap key={`ent-${i}`} model={e}/>)
+            entities.map((e, i) => <EntityOnMap key={`ent-${i}`} model={e}/>)
         }
     </Container>
 })

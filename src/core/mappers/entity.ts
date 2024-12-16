@@ -8,9 +8,15 @@ import {
 } from "core/models/entities/creators";
 import Entity from "core/models/entities/Entity";
 import {EntityTypeEnum} from "core/enums/entity";
-import building from "assets/images/sprites/tiles/building.png";
 import UnitModel from "core/models/entities/UnitModel";
 import StructureModel from "core/models/entities/StructureModel";
+// assets
+import attack_unit from "assets/images/sprites/entities/attack_unit.png";
+import base_structure from "assets/images/sprites/entities/base_structure.png";
+import builder_unit from "assets/images/sprites/entities/builder_unit.png";
+import command_unit from "assets/images/sprites/entities/command_unit.png";
+import energy_station_structure from "assets/images/sprites/entities/energy_station_structure.png";
+import turret_structure from "assets/images/sprites/entities/turret_structure.png";
 
 type EntityCreator<T extends Entity = Entity> = (() => Entity|T)|undefined
 
@@ -41,12 +47,12 @@ class EntityMap {
     }
 }
 export const ENTITY_TO_SPRITE = (new Map<EntityTypeEnum, string>())
-    .set(EntityTypeEnum.BASE_STRUCTURE, building)
-    .set(EntityTypeEnum.ENERGY_STATION_STRUCTURE, building)
-    .set(EntityTypeEnum.TURRET_STRUCTURE, building)
-    .set(EntityTypeEnum.COMMAND_UNIT, building)
-    .set(EntityTypeEnum.ATTACK_UNIT, building)
-    .set(EntityTypeEnum.BUILDER_UNIT, building)
+    .set(EntityTypeEnum.BASE_STRUCTURE, base_structure)
+    .set(EntityTypeEnum.ENERGY_STATION_STRUCTURE, energy_station_structure)
+    .set(EntityTypeEnum.TURRET_STRUCTURE, turret_structure)
+    .set(EntityTypeEnum.COMMAND_UNIT, command_unit)
+    .set(EntityTypeEnum.ATTACK_UNIT, attack_unit)
+    .set(EntityTypeEnum.BUILDER_UNIT, builder_unit)
 
 export const ENTITY_TO_OBJECT = (new EntityMap())
     .set<StructureModel>(EntityTypeEnum.BASE_STRUCTURE, baseStructureCreator)

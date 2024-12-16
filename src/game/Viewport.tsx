@@ -60,7 +60,7 @@ const PixiViewportComponent = PixiComponent("Viewport", {
             })
             .wheel()
             .clampZoom({
-                minScale: .4,
+                minScale: .2,
                 maxScale: 1
             })
             .bounce({
@@ -92,46 +92,14 @@ const PixiViewportComponent = PixiComponent("Viewport", {
             const oldProp = oldProps[propName as keyof Omit<PixiComponentViewportProps, 'width'|'height'|'children'|'app'>]
             const newProp = newProps[propName as keyof Omit<PixiComponentViewportProps, 'width'|'height'|'children'|'app'>]
 
-            if (oldProp !== newProp) {
-                if (oldProp) {
-                    viewport.removeEventListener(eventName, oldProp)
-                }
-                if (newProp) {
-                    viewport.addEventListener(eventName, newProp)
-                }
+            if (oldProp && oldProp !== newProp) {
+                viewport.removeEventListener(eventName, oldProp)
+            }
+
+            if (newProp && oldProp !== newProp) {
+                viewport.addEventListener(eventName, newProp)
             }
         }
-
-        // if (oldProps.onMouseDown !== newProps.onMouseDown) {
-        //     if (oldProps?.onMouseDown) {
-        //         viewport.removeEventListener('mousedown', oldProps?.onMouseDown)
-        //     }
-        //     if (newProps?.onMouseDown) {
-        //         viewport.addEventListener('mousedown', newProps?.onMouseDown)
-        //     }
-        // }
-        //
-        // if (oldProps.onMouseDown !== newProps.onMouseDown) {
-        //
-        //
-        // }
-
-        // if (oldProps.onMouseMove !== newProps.onMouseMove) {
-        //     viewport.removeEventListener('mousemove', oldProps?.onMouseMove)
-        //     viewport.addEventListener('mousemove', newProps?.onMouseMove)
-        // }
-        // if (oldProps.onMouseUp !== newProps.onMouseUp) {
-        //     viewport.removeEventListener('mouseup', oldProps?.onMouseUp)
-        //     viewport.addEventListener('mouseup', newProps?.onMouseUp)
-        // }
-        // if (oldProps.onRightDown !== newProps.onRightDown) {
-        //     viewport.removeEventListener('rightdown', oldProps?.onRightDown)
-        //     viewport.addEventListener('rightdown', newProps?.onRightDown)
-        // }
-        // if (oldProps.onRightUp !== newProps.onRightUp) {
-        //     viewport.removeEventListener('rightup', oldProps?.onRightUp)
-        //     viewport.addEventListener('rightup', newProps?.onRightUp)
-        // }
     }
 });
 

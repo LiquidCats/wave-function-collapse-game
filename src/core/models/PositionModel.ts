@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
 import Position from "core/valueObjects/Position";
+import {MovementDelta, RotationDirection} from "./entities/types";
 
 export default class PositionModel {
     public rotationAngle(start: Position, end: Position, point: Position): number {
@@ -38,7 +39,7 @@ export default class PositionModel {
         return new Position(newX, newY)
     }
 
-    public rotationDiction(start: Position, end: Position, point: Position) {
+    public rotationDiction(start: Position, end: Position, point: Position): RotationDirection {
         start = start.gameToAxis()
         end = end.gameToAxis()
         point = point.gameToAxis()
@@ -49,11 +50,18 @@ export default class PositionModel {
             * (end.x - start.x)
 
         if (D > 0) {
-            return -1; // точка находится справа от вектора => отнимаем от текущему угл
+            return -1; // точка находится справа от вектора => отнимаем от текущему угла
         } else if (D < 0) {
-            return 1; // точка находится слева от вектора => прибавляем к текущему угл
+            return 1; // точка находится слева от вектора => прибавляем к текущему угла
         } else {
             return 0; // точка находится на векторе
         }
+    }
+
+    public delta(start: number, end: number): MovementDelta {
+        if (start > end) return -1
+        if (start < end) return 1
+
+        return 0
     }
 }

@@ -11,12 +11,16 @@ export const commandUnitCreator = (): Entity => {
         .setHealth(500)
         .setDps(25)
         .unique()
+        .setSizeInTiles(.75)
+        .setAttackRadiusInTiles(2)
+        .setObservationRadiusInTiles(3)
 }
 export const builderUnitCreator = (): Entity => {
     return (new UnitModel(EntityTypeEnum.BUILDER_UNIT))
         .setBuildingEnergyCost(100)
         .setEnergyProduction(5)
         .setHealth(100)
+        .setSizeInTiles(0.25)
 }
 export const attackUnitCreator = (): Entity => {
     return (new UnitModel(EntityTypeEnum.ATTACK_UNIT))
@@ -24,6 +28,9 @@ export const attackUnitCreator = (): Entity => {
         .setEnergyConsumption(5)
         .setHealth(200)
         .setDps(10)
+        .setSizeInTiles(.5)
+        .setAttackRadiusInTiles(1)
+        .setObservationRadiusInTiles(2)
 }
 
 export const baseStructureCreator = (): Entity => {

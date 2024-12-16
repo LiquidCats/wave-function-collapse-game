@@ -1,15 +1,10 @@
 // packages
-import {memo, useCallback, useMemo} from "react";
-import {Container, Graphics, Sprite} from "@pixi/react";
-import {Graphics as IGraphics} from "@pixi/graphics";
-import {useSetRecoilState} from "recoil";
+import React, {memo, useMemo,} from "react";
+// core
+import useResize from "core/hooks/useResize";
 // modules
 import GameScreen from "game/GameScreen";
-import {entityToPlaceState} from "state/entityToPlace";
-import {TILE_SIZE} from "core/enums/tile";
-import useResize from "core/hooks/useResize";
-import {EntityTypeEnum} from "core/enums/entity";
-import {ENTITY_TO_SPRITE} from "core/mappers/entity";
+import HUD from "hud/HUD";
 
 type AppProps = {}
 
@@ -19,30 +14,9 @@ const App = memo<AppProps>(() => {
     const GameScreenHeight= useMemo(() => height - (height * .2), [height])
     const HUDHeight= useMemo(() => height - GameScreenHeight, [height, GameScreenHeight])
 
-    const setCurrentBuildingChosenToBuild = useSetRecoilState(entityToPlaceState)
-    const buildingCreationHandler = useCallback((type: EntityTypeEnum) => () => {
-        setCurrentBuildingChosenToBuild(type)
-    }, [])
-
-    const drawHUDBackground = useCallback((g: IGraphics) => {
-        g.clear()
-        g.beginFill("#fff")
-        g.drawRect(0, 0, width, HUDHeight);
-        g.endFill()
-    }, [width, HUDHeight])
-
     return <>
         <GameScreen width={width} height={GameScreenHeight}/>
-        <Container width={width} height={HUDHeight} y={GameScreenHeight+TILE_SIZE}>
-            <Graphics draw={drawHUDBackground}/>
-            <Sprite x={10}
-                    y={10}
-                    eventMode="dynamic"
-                    onmouseup={buildingCreationHandler(EntityTypeEnum.BASE_STRUCTURE)}
-                    image={ENTITY_TO_SPRITE.get(EntityTypeEnum.BASE_STRUCTURE)}
-                    height={TILE_SIZE}
-                    width={TILE_SIZE}/>
-        </Container>
+        <HUD width={width} height={HUDHeight} y={GameScreenHeight}/>
     </>
 })
 
